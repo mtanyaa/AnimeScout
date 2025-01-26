@@ -1,0 +1,117 @@
+body {
+    background-image: url(./images/image.png);
+    background-size: cover;
+    display: flex;
+}
+.left{
+    flex: 1;
+}
+.center{
+    flex: 1;
+    margin: 15px 15px 15px 15px;
+}
+
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Rubik Vinyl", serif;
+    font-weight: 400;
+    font-size: 120px;
+    font-style: normal;
+    color: black;
+}
+
+
+.error {
+    color: red;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+}
+
+form label {
+    margin-right: 15px;
+}
+
+form button {
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    border: 1px solid blue;
+}
+
+form button:hover {
+    cursor: pointer
+}
+
+form input {
+    font-size: 20px;
+    margin: 3px;
+}
+
+#result {
+    max-width: 1000px;
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px white;
+}
+#result h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: black;
+}
+#result .content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    background-color: white;
+}
+#result .left {
+    flex: 1;
+    font-size: 30px;
+    color: black;
+}
+#result .right {
+   
+    flex: 1;
+}
+#result video{
+    width: 300px;
+    height: 300px;
+}
+.slider-container {
+    width: 400px; 
+    height:100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .slider {
+    display: flex;
+    flex-direction: column;
+    animation: scroll 5s linear infinite;
+  }
+  .slider img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom: 2px solid #f1f1f1;
+  }
+  @keyframes scroll {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+  

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Identifier</title>
+  <link rel="stylesheet" href="home.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="left">
+    <div class="slider-container">
+      <div class="slider">
+        <img src="./images/1.jpg" alt="Anime 1">
+        <img src="./images/2.jpg" alt="Anime 2">
+        <img src="./images/3.jpg" alt="Anime 3">
+        <img src="./images/4.jpg" alt="Anime 4">
+        <img src="./images/5.jpg" alt="Anime 5">
+        <img src="./images/6.jpg" alt="Anime 6">
+        <img src="./images/7.jpg" alt="Anime 7">
+        <img src="./images/8.jpg" alt="Anime 8">
+        <img src="./images/9.jpg" alt="Anime 9">
+        <img src="./images/10.jpg" alt="Anime 10">
+
+      </div>
+    </div>
+
+  </div>
+  <div class="center">
+    <h1>Anime Identifier</h1>
+    <form id="upload-form" action="/upload" method="POST" enctype="multipart/form-data">
+      <label for="image">Upload Anime Screenshot:</label>
+      <input type="file" id="image" name="image" accept="image/*" required>
+      <button type="submit">Identify Anime</button>
+    </form>
+
+    <div id="result">
+
+    </div>
+
+    <script>
+      const form = document.getElementById('upload-form');
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const resultDiv = document.getElementById('result');
+
+        resultDiv.innerHTML = 'Loading...';
+
+        try {
+          const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+
+            const anime = data.anime;
+
+            resultDiv.innerHTML = `
+            <div class="content">
+        <div class="left">
+            <p><strong>Title:</strong> ${anime.title}</p>
+            <p><strong>Episode:</strong> ${anime.episode}</p>
+            <p><strong>Similarity:</strong> ${anime.similarity}</p>
+        </div>
+        <div class="right">
+            <video controls>
+                <source src="${anime.videoUrl}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+          `;
+          } else {
+            const errorData = await response.json();
+            resultDiv.innerHTML = `<p class="error">Error: ${errorData.error}</p>`;
+          }
+        } catch (error) {
+          resultDiv.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+        }
+      };
+
+      const slider = document.querySelector('.slider');
+
+      const images = slider.innerHTML;
+      slider.innerHTML += images;
+
+      const imageCount = slider.querySelectorAll('img').length;
+      const animationDuration = imageCount * 5;
+      slider.style.animationDuration = `${animationDuration}s`;
+
+    </script>
+  </div>
+
+
+  </div>
+
+
+</body>
+
+</html>
